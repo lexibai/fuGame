@@ -1,1 +1,64 @@
-Hello World
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>fu索引页</title>
+<!-- 使用BootCDN提供的jQuery库 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+  .container { width: 80%; margin: auto; }
+  h1, h2 { color: #333; }
+  ul { list-style-type: none; padding-left: 0; }
+  li { background: #f9f9f9; margin: 5px 0; padding: 10px; border-radius: 4px; }
+  a { text-decoration: none; color: #007BFF; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1 id="mainTitle"></h1>
+  
+  <div id="content"></div>
+
+<script>
+// JSON数据
+const jsonData = {
+  "title": "Fu: 最终物语",
+  "sections": [
+    {
+      "heading": "世界观",
+      "items": [
+        {"title": "国家", "url": "./fu可公开资料/国家.html"},
+       
+      ]
+    }
+  ]
+};
+
+$(document).ready(function(){
+  // 设置主标题
+  $('#mainTitle').text(jsonData.title);
+
+  // 遍历sections并生成内容
+  $.each(jsonData.sections, function(index, section){
+    var sectionDiv = $('<div></div>');
+    var heading = $('<h2></h2>').text(section.heading);
+    sectionDiv.append(heading);
+
+    var ul = $('<ul></ul>');
+    $.each(section.items, function(i, item){
+      var li = $('<li></li>');
+      var a = $('<a></a>')
+              .attr('href', item.url)
+              .text(item.title);
+      li.append(a);
+      ul.append(li);
+    });
+    sectionDiv.append(ul);
+    $('#content').append(sectionDiv);
+  });
+});
+</script>
+</body>
+</html>
